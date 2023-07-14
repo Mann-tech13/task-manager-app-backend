@@ -1,9 +1,14 @@
 const express = require("express");
+const cors = require('cors');
 const mongoose = require("mongoose");
+const controller = require('./controller/task.js');
 
 const app = express();
 
 app.use(express.json());
+app.use(cors())
+
+app.use('/', controller);
 
 mongoose
   .connect("mongodb://localhost:27017/planify")
@@ -16,7 +21,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-app.listen(8000, (res, err) => {
-    console.log("Server listening on Port", 8000);
-})
