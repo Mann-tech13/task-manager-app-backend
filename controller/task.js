@@ -1,6 +1,15 @@
 const router = require("express").Router();
-const {getTasks} = require("../service/getTasks")
-router.get('/t/addTask', getTasks);
+const {
+  getTasks,
+  addTasks,
+  updateTasks,
+  deleteTasks,
+} = require("../service/tasksImpl");
+
+router.get("/t/getTasks", getTasks);
+router.post("/t/addTasks", addTasks);
+router.put("/t/updateTasks", updateTasks);
+router.delete("/t/deleteTasks", deleteTasks);
 
 // // GET all tasks
 // router.get("/tasks", async (req, res) => {

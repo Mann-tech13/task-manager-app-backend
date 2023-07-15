@@ -1,19 +1,19 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const mongoose = require("mongoose");
-const controller = require('./controller/task.js');
+const controller = require("./controller/task.js");
 
 const app = express();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
-app.use('/', controller);
+app.use("/", controller);
 
 mongoose
   .connect("mongodb://localhost:27017/planify")
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log("MongoDB connected");
     app.listen(8080, () => {
       console.log("Port on 8080");
     });
