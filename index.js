@@ -11,10 +11,9 @@ app.use(cors());
 
 app.use("/", controller);
 
-// console.log(process.env.MONGODB_URI);
-// console.log(process.env.PORT);
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7tfcuh6.mongodb.net/${process.env.DB_NAME}`
 mongoose
-  .connect(`${process.env.MONGODB_URI}`)
+  .connect(url)
   .then(() => {
     console.log("MongoDB connected");
     app.listen(process.env.PORT, () => {
