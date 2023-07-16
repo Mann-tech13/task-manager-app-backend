@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const controller = require("./controller/task.js");
-require('dotenv').config({ path: __dirname + '/.env' });
+require('dotenv').config();
 
 const app = express();
 
@@ -11,6 +11,8 @@ app.use(cors());
 
 app.use("/", controller);
 
+// console.log(process.env.MONGODB_URI);
+// console.log(process.env.PORT);
 mongoose
   .connect(`${process.env.MONGODB_URI}`)
   .then(() => {
