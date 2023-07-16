@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const controller = require("./controller/task.js");
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 
@@ -18,7 +18,7 @@ mongoose
   .then(() => {
     console.log("MongoDB connected");
     app.listen(process.env.PORT, () => {
-      console.log("Server running on "+process.env.PORT);
+      console.log("Server running on " + process.env.PORT);
     });
   })
   .catch((err) => {
