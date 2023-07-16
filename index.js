@@ -12,7 +12,7 @@ app.use(cors());
 app.use("/", controller);
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(`${process.env.MONGODB_URI}`)
   .then(() => {
     console.log("MongoDB connected");
     app.listen(process.env.PORT, () => {
