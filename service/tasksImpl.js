@@ -1,4 +1,4 @@
-const TaskSchema = require("../models/taskModel");
+const TaskSchema = require("../models/tTaskModel");
 const { ObjectId } = require("mongodb");
 const handleError = require("../utils/error");
 
