@@ -11,7 +11,9 @@ app.use(cors());
 
 app.use("/", controller);
 
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7tfcuh6.mongodb.net/${process.env.DB_NAME}`
+// const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7tfcuh6.mongodb.net/${process.env.DB_NAME}`
+const url = "mongodb+srv://mann_planify:mannplanify13@cluster0.7tfcuh6.mongodb.net/planify"
+
 mongoose
   .connect(url)
   .then(() => {
