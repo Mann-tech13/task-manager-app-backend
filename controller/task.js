@@ -11,7 +11,7 @@ router.get("/t/getTasks", getTasks);
 router.post("/t/addTasks", addTasks);
 router.put("/t/updateTask/:id", updateTask);
 router.get("/t/getTask/:id", getTaskById);
-router.delete("/t/deleteTasks", deleteTasks);
+router.delete("/t/deleteTasks/:id", deleteTasks);
 
 
 // Middleware function to get a single task by ID
