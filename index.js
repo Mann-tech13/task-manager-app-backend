@@ -14,8 +14,7 @@ app.use(cors());
 app.use("/t", taskController);
 app.use("/c", calendarController);
 
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7tfcuh6.mongodb.net/${process.env.DB_NAME}`
-// const url = "mongodb+srv://mann_planify:mannplanify13@cluster0.7tfcuh6.mongodb.net/planify"
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7tfcuh6.mongodb.net/${process.env.DB_NAME}`;
 
 mongoose
   .connect(url)
@@ -28,5 +27,5 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-  
-module.exports = app
+
+module.exports = app;
