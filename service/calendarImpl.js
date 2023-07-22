@@ -6,7 +6,7 @@ const handleError = require("../utils/error");
 exports.getEvents = async (req, res) => {
   try {
     const findEvents = await CalendarSchema.find({});
-    res.status(200).json(findTask);
+    res.status(200).json(findEvents);
   } catch (error) {
     handleError(error, res);
   }
@@ -15,7 +15,7 @@ exports.getEvents = async (req, res) => {
 exports.addEvent = async (req, res) => {
   try {
     const newEvent = await CalendarSchema.create(req.body);
-    res.status(200).json(newTask);
+    res.status(200).json(newEvent);
   } catch (error) {
     handleError(error, res);
   }
@@ -36,8 +36,8 @@ exports.updateEvent = async (req, res) => {
 exports.deleteEvent = async (req, res) => {
   try {
     const id = req.params;
-    const deleteTask = await CalendarSchema.findByIdAndDelete(new ObjectId(id));
-    res.status(200).json(deleteTask);
+    const deleteEvent = await CalendarSchema.findByIdAndDelete(new ObjectId(id));
+    res.status(200).json(deleteEvent);
   } catch (error) {
     handleError(error, res);
   }
