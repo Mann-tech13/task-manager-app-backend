@@ -3,7 +3,7 @@ const { ObjectId } = require("mongodb");
 const handleError = require("../utils/error");
 
 
-exports.getTasks = async (req, res) => {
+const getTasks = async (req, res) => {
   try {
     const findTask = await TaskSchema.find({});
     res.status(200).json(findTask);
@@ -12,7 +12,7 @@ exports.getTasks = async (req, res) => {
   }
 };
 
-exports.addTasks = async (req, res) => {
+const addTasks = async (req, res) => {
   try {
     const newTask = await TaskSchema.create(req.body);
     res.status(200).json(newTask);
@@ -21,7 +21,7 @@ exports.addTasks = async (req, res) => {
   }
 };
 
-exports.updateTask = async (req, res) => {
+const updateTask = async (req, res) => {
   try {
     const id = req.params;
     await TaskSchema.findByIdAndUpdate(new ObjectId(id), req.body);
@@ -32,7 +32,7 @@ exports.updateTask = async (req, res) => {
   }
 };
 
-exports.getTaskById = async (req, res) => {
+const getTaskById = async (req, res) => {
   try {
     const id = req.params;
     const getTask = await TaskSchema.findById(new ObjectId(id));
@@ -43,7 +43,7 @@ exports.getTaskById = async (req, res) => {
 };
 
 
-exports.deleteTasks = async (req, res) => {
+const deleteTasks = async (req, res) => {
   try {
     const id = req.params;
     const deleteTask = await TaskSchema.findByIdAndDelete(new ObjectId(id));
@@ -52,3 +52,14 @@ exports.deleteTasks = async (req, res) => {
     handleError(error, res);
   }
 };
+
+const deleteResolvedTasks = async (req, res) => {
+  try {
+    const deleteResolved = await TaskSchema.deleteMany({category: "RESOLVED"})
+    res.status(200).json(deleteResolved);
+  } catch (error) {
+    handleError(error, res);
+  }
+}
+
+module.exports = {getTasks, addTasks, updateTask, getTaskById, deleteTasks, deleteResolvedTasks}
