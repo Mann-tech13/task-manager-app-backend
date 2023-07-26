@@ -4,13 +4,6 @@ const mongoose = require("mongoose");
 const taskController = require("./controller/task.js");
 const calendarController = require("./controller/calendar.js");
 const userController = require("./controller/user.js");
-const crypto = require('crypto');
-
-// Generate a random 256-bit key (32 bytes)
-const secretKey = crypto.randomBytes(32).toString('hex');
-
-console.log(secretKey);
-
 
 require("dotenv").config();
 

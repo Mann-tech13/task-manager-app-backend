@@ -1,15 +1,33 @@
 const UserSchema = require("../models/UserModel");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const handleError = require("../utils/error");
 
 const login = async (req, res) => {
   try {
-  } catch (error) {}
+    const { email, password } = req.body;
+    const user = await UserSchema.findOne({email}).lean();
+    if(!user){
+      return res.status(404).json({message: "User not found"});
+    }
+    const auth = await bcrypt.compare(password, user.password);
+    if(!auth){
+      return res.status(401).json({message: "Invalid credentials"});
+    }
+    
+    const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: '24h'
+    });
+
+    res.status(200).json({ message: "Login successful", accessToken });
+  } catch (error) {
+    handleError(error, res);
+  }
 };
 const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const existingUser = await User.findOne({ email });
+    const existingUser = await UserSchema.findOne({ email });
     if (existingUser) {
         return res.status(409).json({ message: 'Email already registered' });
     }
@@ -21,7 +39,6 @@ const register = async (req, res) => {
       password: hashPassword,
     });
     res.status(200).json(user);
-    res.send(user);
   } catch (error) {
     handleError(error, res);
   }
