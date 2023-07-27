@@ -1,7 +1,7 @@
 const UserSchema = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const handleError = require("../utils/error");
+const handleError = require("../utils/extend");
 
 const login = async (req, res) => {
   try {

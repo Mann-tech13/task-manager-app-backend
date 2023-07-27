@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const taskSchema = mongoose.Schema({
+  userId:{
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -21,6 +25,10 @@ const taskSchema = mongoose.Schema({
     type: String,
     enum: ['OPEN', 'PROGRESS', 'RESOLVED'],
     default: 'OPEN',
+  },
+  createdAt: {
+    type: Number,
+    required: true,
   }
 });
 
