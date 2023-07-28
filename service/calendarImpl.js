@@ -1,6 +1,7 @@
 const CalendarSchema = require("../models/CalendarModel");
 const { ObjectId } = require("mongodb");
 const handleError = require("../utils/extend");
+const validateAndGetUserIdFromAccessToken = require("../utils/extend");
 
 exports.getEvents = async (req, res) => {
   try {
