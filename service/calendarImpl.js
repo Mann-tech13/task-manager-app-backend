@@ -1,11 +1,12 @@
 const CalendarSchema = require("../models/CalendarModel");
 const { ObjectId } = require("mongodb");
-const {handleError} = require("../utils/extend");
-const {validateAndGetUserIdFromAccessToken} = require("../utils/extend");
+const { handleError } = require("../utils/extend");
+const { validateAndGetUserIdFromAccessToken } = require("../utils/extend");
 
 exports.getEvents = async (req, res) => {
   try {
-    const accessToken = req.headers.authorization;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
     if (userId) {
       const findEvents = await CalendarSchema.find({ userId });
@@ -19,7 +20,8 @@ exports.getEvents = async (req, res) => {
 exports.addEvent = async (req, res) => {
   try {
     const { title, description, start, end, createdAt } = req.body;
-    const accessToken = req.headers.authorization;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
     if (userId) {
       const event = {
@@ -42,7 +44,8 @@ exports.updateEvent = async (req, res) => {
   try {
     const { title, description, start, end, createdAt } = req.body;
     const id = req.params;
-    const accessToken = req.headers.authorization;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
     if (userId) {
       const event = {
@@ -64,7 +67,8 @@ exports.updateEvent = async (req, res) => {
 
 exports.deleteEvent = async (req, res) => {
   try {
-    const accessToken = req.headers.authorization;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
     if (userId) {
       const id = req.params;

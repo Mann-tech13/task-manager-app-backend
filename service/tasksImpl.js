@@ -1,22 +1,18 @@
 const TaskSchema = require("../models/PlanModel");
 const { ObjectId } = require("mongodb");
-const {handleError} = require("../utils/extend");
-const {validateAndGetUserIdFromAccessToken} = require("../utils/extend");
+const { handleError } = require("../utils/extend");
+const { validateAndGetUserIdFromAccessToken } = require("../utils/extend");
 
 const getTasks = async (req, res) => {
   try {
     const accessTokenSplit = req.headers.authorization;
-    const accessToken = accessTokenSplit.split(" ")[1]
-    // console.log(validateAndGetUserIdFromAccessToken);
+    const accessToken = accessTokenSplit.split(" ")[1];
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
-    console.log(userId);
-    if(userId) {
+    if (userId) {
       const findTask = await TaskSchema.find({ userId });
       res.status(200).json(findTask);
     }
   } catch (error) {
-    // console.log(error);
-    // console.log("*******************************");
     handleError(error, res);
   }
 };
@@ -24,8 +20,9 @@ const getTasks = async (req, res) => {
 const addTasks = async (req, res) => {
   try {
     const { title, projectName, description, priority, category, createdAt } =
-      req.body;
-    const accessToken = req.headers.authorization;
+    req.body;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
     if (userId) {
       const task = {
@@ -51,7 +48,8 @@ const updateTask = async (req, res) => {
     const { title, projectName, description, priority, category, createdAt } =
       req.body;
     const id = req.params;
-    const accessToken = req.headers.authorization;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
     if (userId) {
       const task = {
@@ -74,7 +72,8 @@ const updateTask = async (req, res) => {
 
 const getTaskById = async (req, res) => {
   try {
-    const accessToken = req.headers.authorization;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];    
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
     if (userId) {
       const id = req.params;
@@ -88,9 +87,10 @@ const getTaskById = async (req, res) => {
 
 const deleteTasks = async (req, res) => {
   try {
-    const accessToken = req.headers.authorization;
-    const userId = validateAndGetUserIdFromAccessToken(accessToken);
-    if(userId) {
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
+        const userId = validateAndGetUserIdFromAccessToken(accessToken);
+    if (userId) {
       const id = req.params;
       const deleteTask = await TaskSchema.findByIdAndDelete(new ObjectId(id));
       res.status(200).json(deleteTask);
@@ -102,9 +102,10 @@ const deleteTasks = async (req, res) => {
 
 const deleteResolvedTasks = async (req, res) => {
   try {
-    const accessToken = req.headers.authorization;
-    const userId = validateAndGetUserIdFromAccessToken(accessToken);
-    if(userId){
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1];
+        const userId = validateAndGetUserIdFromAccessToken(accessToken);
+    if (userId) {
       const deleteResolved = await TaskSchema.deleteMany({
         category: "RESOLVED",
       });
