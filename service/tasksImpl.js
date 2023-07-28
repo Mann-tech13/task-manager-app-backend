@@ -1,17 +1,22 @@
 const TaskSchema = require("../models/PlanModel");
 const { ObjectId } = require("mongodb");
-const handleError = require("../utils/extend");
-const validateAndGetUserIdFromAccessToken = require("../utils/extend");
+const {handleError} = require("../utils/extend");
+const {validateAndGetUserIdFromAccessToken} = require("../utils/extend");
 
 const getTasks = async (req, res) => {
   try {
-    const accessToken = req.headers.authorization;
+    const accessTokenSplit = req.headers.authorization;
+    const accessToken = accessTokenSplit.split(" ")[1]
+    // console.log(validateAndGetUserIdFromAccessToken);
     const userId = validateAndGetUserIdFromAccessToken(accessToken);
+    console.log(userId);
     if(userId) {
       const findTask = await TaskSchema.find({ userId });
       res.status(200).json(findTask);
     }
   } catch (error) {
+    // console.log(error);
+    // console.log("*******************************");
     handleError(error, res);
   }
 };

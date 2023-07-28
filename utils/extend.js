@@ -9,6 +9,7 @@ const handleError = (err, res) => {
 
 const validateAndGetUserIdFromAccessToken = (accessToken) => {
   try {
+    // console.log(accessToken);
     const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
     const userId = decodedToken.userId;
     return userId;
