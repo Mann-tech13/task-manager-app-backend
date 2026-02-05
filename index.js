@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const taskController = require("./controller/task.js");
 const calendarController = require("./controller/calendar.js");
 const userController = require("./controller/user.js");
@@ -26,8 +25,6 @@ app.use(async (req, res, next) => {
 app.use("/t", taskController);
 app.use("/c", calendarController);
 app.use("/u", userController);
-
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7tfcuh6.mongodb.net/${process.env.DB_NAME}`;
 
 app.get("/ping", (req, res) => {
   res.json({ ok: true });
