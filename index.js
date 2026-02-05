@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const taskController = require("./controller/task.js");
 const calendarController = require("./controller/calendar.js");
 const userController = require("./controller/user.js");
+const connectDB = require("./db.js");
 
 require("dotenv").config();
 
