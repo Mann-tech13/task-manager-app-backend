@@ -12,22 +12,24 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database connection failed" });
+  }
+});
+
 app.use("/t", taskController);
 app.use("/c", calendarController);
 app.use("/u", userController);
 
 const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7tfcuh6.mongodb.net/${process.env.DB_NAME}`;
 
-mongoose
-  .connect(url)
-  .then(() => {
-    console.log("MongoDB connected");
-    app.listen(process.env.PORT, () => {
-      console.log("Server running on " + process.env.PORT);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+app.get("/ping", (req, res) => {
+  res.json({ ok: true });
+});
 
 module.exports = app;
